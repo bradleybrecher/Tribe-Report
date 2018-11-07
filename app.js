@@ -4,8 +4,13 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const validUrl = require('valid-url');
-require('./Gruntfile.js')(grunt);
 const app = express();
+
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
 
 
 
@@ -31,5 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.render('index');
 });
+
+app.post('/login', passport.authenticate('local', { successRedirect: '/',
+                                                    failureRedirect: '/login' }));
 
 app.listen(3000);

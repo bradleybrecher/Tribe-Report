@@ -36,28 +36,27 @@ An Example User:
 
 /home - home page with feed of the articles
 
-![list create](documentation/homepage.png)
+![report](documentation/homepage.png)
 
 /post - page to add new articles
 
-![list](documentation/postpage.png)
+![report](documentation/postpage.png)
 
 / - page to log in
 
-![list](documentation/loginpage.png)
+![report](documentation/loginpage.png)
 
 /join - page to join
 
-![list](documentation/joinpage.png)
+![report](documentation/joinpage.png)
 
 ## Site map
 
-![list](documentation/sitemap.png)
+![report](documentation/sitemap.png)
 
 
 ## User Stories or Use Cases
 
-(___TODO__: write out how your application will be used through [user stories](http://en.wikipedia.org/wiki/User_story#Format) and / or [use cases](https://www.mongodb.com/download-center?jmp=docs&_ga=1.47552679.1838903181.1489282706#previous)_)
 
 1. as non-registered user, I can register a new account with the site
 2. as a user, I can log in to the site
@@ -71,12 +70,10 @@ account I am logged in (trust in tribe account members)
 (2 points) Use a CSS framework throughout your site, use a reasonable of customization of the framework (don't just use stock Bootstrap - minimally configure a theme):
   * Bootstrap is a responsive front-end framework for designing websites and web applications. It allows the layout of the Web pages to be adjusted dynamically, depending upon the characteristics of the device used – whether it is a desktop, mobile phone or tablet. As mobile phones are only growing people tend to use their phone in substitute of a computer so I think it is important to have the app be responsive.(2,3)
 (3 points) Perform client side form validation using custom JavaScript or JavaScript library
-  * URI validation functions to make sure links to articles are valid. It collects common URI validation routines to make input validation, and untainting easier and more readable. All functions return an untainted value if the test passes, and undef if it fails, making it simple. This will help so when the link is hovered over the live preview performed will work smoothly.(1)
+  * URI validation functions to make sure links to articles are valid. It collects common URI validation routines to make input validation, and untainting easier and more readable. All functions return an untainted value if the test passes, and undef if it fails, making it simple. This will help so when the link is hovered over the live preview performed will work smoothly.
 
-(3 points) Use grunt, gulp, webpack or even make (!) to automate any of the following … must be used in combination with one or more of the other requirements, such as:
-  (2 points) Integrate ESLint / JSHint / JSLint into your workflow
-  * Automating the process of performing lint checks on app.js (target file) by implementing grunt-eslint. Using the eslint files we have been given in each of the homeworks as the config file.
-    This help in the process of constantly having to manuely run the linter. and help save time fixing the problems later. The lint command will be linked to grunt so there will be no reason to run 'grunt eslint' will just need to run grunt.
+(5 points) Integrate user authentication
+  * Passport for user authentication. As each tribe needs their atricles to be perserved user authentication is the very important. Without user authentication, the user cannot experience the functionalilies of the application. Depending on time constraints may vamp up this feature
 
 
   
@@ -92,6 +89,5 @@ account I am logged in (trust in tribe account members)
 1. [URI validation functions docs](https://www.npmjs.com/package/valid-url) - (app.js)
 2. [tutorial on bootstrap + express.js](https://opensourceforu.com/2016/10/build-website-using-bootstrap-express-js/)
 3. [bootstrap docs](https://www.npmjs.com/package/bootstrap )
-4. [grunt elsint specs](https://github.com/sindresorhus/grunt-eslint)-(app.js)
-5. [Professors sample](https://github.com/nyu-csci-ua-0480-008-spring-2017/final-project-example)-(app.js,db.js)
-6. [Grunt and Eslint](https://www.hongkiat.com/blog/automate-workflow-with-grunt/)-(Gruntfile.js)
+4. [Professors sample](https://github.com/nyu-csci-ua-0480-008-spring-2017/final-project-example)-(app.js,db.js)
+5. [passport docs](http://www.passportjs.org/docs/)-(app.js)
