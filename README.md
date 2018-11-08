@@ -36,23 +36,23 @@ An Example User:
 
 /home - home page with feed of the articles
 
-![report](documentation/homepage.png)
+![report](documentation/homepage-1.png)
 
 /post - page to add new articles
 
-![report](documentation/postpage.png)
+![report](documentation/postpage-1.png)
 
 / - page to log in
 
-![report](documentation/loginpage.png)
+![report](documentation/loginpage-1.png)
 
 /join - page to join
 
-![report](documentation/joinpage.png)
+![report](documentation/joinpage-1.png)
 
 ## Site map
 
-![report](documentation/sitemap.png)
+![report](documentation/sitemap-1.png)
 
 
 ## User Stories or Use Cases
