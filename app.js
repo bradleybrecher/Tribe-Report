@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.post('/login', passport.authenticate('local', { successRedirect: '/',
-                                                    failureRedirect: '/login' }));
+// app.post('/login', passport.authenticate('local', { successRedirect: '/',
+//                                                     failureRedirect: '/login' }));
 
 app.listen(3000);
