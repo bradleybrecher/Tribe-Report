@@ -40,12 +40,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
- 			Article.find(function(err, articles) {
-		      		console.log('found');
-		            res.render('index', {
-		                articles: articles
-		            });
-		        });
+	// TODO: MAKE SURE ALL DB RENDERS FIRST CLICK
+ 		Article.find(function(err, articles) {
+	      	console.log('initial find');
+	            res.render('index', {
+	                articles: articles
+	            });
+	        });
 });
 
 app.post('/', (req,res)=>{
