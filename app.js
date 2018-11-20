@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const validUrl = require('valid-url');
 const app = express();
 
-const alert= require('alert-node');
 
+const alert= require('alert-node');
 
 const mongoose = require('mongoose');
 const Article = mongoose.model('Article');
@@ -40,7 +40,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
- 	res.render('index');
+ 			Article.find(function(err, articles) {
+		      		console.log('found');
+		            res.render('index', {
+		                articles: articles
+		            });
+		        });
 });
 
 app.post('/', (req,res)=>{
@@ -68,15 +73,16 @@ app.post('/', (req,res)=>{
         		
         	} else {
         		console.log('saved');
+        		Article.find(function(err, articles) {
+		      		console.log('found');
+		            res.render('index', {
+		                articles: articles
+		            });
+		        });
         	}
         	
    		});
-      	Article.find(function(err, articles) {
-      		console.log(articles);
-            res.render('index', {
-                articles: articles
-            });
-        });
+      	
 
 
     } else {

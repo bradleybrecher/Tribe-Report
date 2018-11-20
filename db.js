@@ -45,8 +45,8 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
  dbconf = conf.dbconf;
 } else {
  // if we're not in PRODUCTION mode, then use
- dbconf = 'mongodb://brb341';
+ dbconf = 'mongodb://localhost/tribe';
 }
 
-
+// mongoose.connect('mongodb://localhost/tribe');
 mongoose.connect(dbconf);
