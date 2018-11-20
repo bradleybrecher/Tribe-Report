@@ -87,4 +87,4 @@ app.post('/', (req,res)=>{
 
 // app.post('/login', passport.authenticate('local', { successRedirect: '/',
 //                                                     failureRedirect: '/login' }));
-app.listen(process.env.PORT || 5000)
+app.listen(process.env.PORT || 3000);
