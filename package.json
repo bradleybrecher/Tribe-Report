@@ -4,6 +4,7 @@
   "description": "Everytime you read something interesting, don't you always think to send it over to pops or your big bro. Even maybe your granddaddy. Sometimes they will take a look and sometimes it will get lost in cyber space due to various reasons. The tribe report will help allievate this issue.",
   "main": "app.js",
   "scripts": {
+    "prestart": "mongodb",
     "start": "node app.js"
   },
   "repository": {
@@ -25,6 +26,7 @@
     "hbs": "^4.0.1",
     "jquery": "^3.3.1",
     "js-alert": "^1.0.4",
+    "mongodb": "^3.1.10",
     "mongoose": "^5.3.10",
     "passport": "^0.4.0",
     "popper.js": "^1.14.5",
