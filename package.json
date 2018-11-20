@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "Everytime you read something interesting, don't you always think to send it over to pops or your big bro. Even maybe your granddaddy. Sometimes they will take a look and sometimes it will get lost in cyber space due to various reasons. The tribe report will help allievate this issue.",
   "main": "app.js",
-  "scripts": {
-    "start": "node app.js"
-  },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nyu-csci-ua-0480-001-003-fall-2018/bradleybrecher-final-project.git"
