@@ -45,7 +45,7 @@ app.use(function(req, res, next) {
 });
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'hbs');
 
 // body parser setup
@@ -54,7 +54,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/', function(req, res) {
     if (req.user) {
