@@ -75,6 +75,7 @@ app.get('/register', function(req, res) {
 });
 
 app.post('/register', function(req, res) {
+    // way to make sure there is no problem
     User.register(new User({
             username: req.body.username
         }),
@@ -181,7 +182,8 @@ app.post('/feed', (req, res) => {
     const theName = req.body.name;
     const theComment = req.body.comment;
     const obj = req.body;
-    const theLink = Object.keys(obj)[2];
+    console.log(obj);
+    const theID = Object.keys(obj)[2];
     // handle comment submissions
 
     const aComment = new Comment({
@@ -190,7 +192,7 @@ app.post('/feed', (req, res) => {
     });
 
     Article.findOneAndUpdate({
-            link: theLink
+            _id: theID
         }, {
             $push: {
                 comments: {
@@ -217,7 +219,7 @@ app.post('/feed', (req, res) => {
 app.post('/post', (req, res) => {
 
     if (validUrl.isUri(req.body.link)) {
-        // perform the post and render
+       
         theName = req.body.name;
         theTitle = req.body.title;
         theLink = req.body.link;
@@ -225,9 +227,9 @@ app.post('/post', (req, res) => {
         theUser = req.user;
         theUserID = theUser._id;
 
+        // TODO: figure out why a post takes one to delay
 
-
-        const article = new Article({
+        const articleToPush = new Article({
             user: theUser,
             name: theName,
             title: theTitle,
@@ -235,23 +237,55 @@ app.post('/post', (req, res) => {
             comment: theComment
 
         });
-        article.save(function(err) {
+        // first save the article
+        articleToPush.save(function(err, article) {
             if (err) {
                 console.log(err);
 
             } else {
-                console.log('saved');
-                Article.find({
-                    "user": theUserID
-                }, function(err, articles) {
-                    // console.log('found');
-                    res.render('feed', {
-                        articles: articles
-                    });
-                });
+                const articleID = article._id;
+                // get the id to query
+                // then find the user and update its article list
+                User.findOneAndUpdate({
+                        "_id": theUserID
+                    }, {
+                        $push: {
+                            articles: articleToPush
+                        }
+                    }, {
+                        safe: true,
+                        upsert: true
+                    },
+                    function(err, users) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            // console.log(users.articles);
+
+                            // // find the articles for the user and render them
+                            // // need to query all article ids
+                            // Article.find({
+                            //     "_id": {
+                            //         $in: users.articles
+                            //     }
+                            // }, function(err, articles) {
+                            //     // console.log('found');
+                            //     res.render('feed', {
+                            //         articles: articles
+                            //     });
+                            // });
+                            res.redirect('/feed');
+
+                        }
+                    }
+                );
+
+
             }
 
         });
+
+
 
 
 
@@ -259,6 +293,7 @@ app.post('/post', (req, res) => {
         console.log('Not a URI');
         alert("Not a URI: TODO: Integrate with DOM");
         // add an onlick and if it doesn;t go through call thr js function
+        
     }
 });
 
