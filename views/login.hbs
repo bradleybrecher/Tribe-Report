@@ -1,15 +1,18 @@
 <!-- https://bootsnipp.com/snippets/featured/very-simple-login-form -->
-<div class="container">
+<div class="container" id="login" >
     <div class="row">
         <div class="span12">
             <form class="form-horizontal" method="POST" action="">
               <fieldset>
                 <div id="legend">
                   <legend class="">Login</legend>
+                  {{#if message}}
+                  <br> <p style=" color: red;">{{message}} </p></br>
+                  {{/if}}
                 </div>
                 <div class="control-group">
                   <!-- Username -->
-                  <label class="control-label"  for="username">Username</label>
+                  <label class="control-label"  for="username">Family Username</label>
                   <div class="controls">
                     <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
                   </div>
@@ -25,11 +28,19 @@
                   <!-- Button -->
                   <div class="controls">
                     <input type= "submit" value="Login" class="btn btn-success"></input>
-                     <button formaction="/register"class="btn btn-success"> Register</button>
+                    
                   </div>
                 </div>
               </fieldset>
             </form>
         </div>
     </div>
+    <div class="card" align="center">
+  <div class="card-body">
+    <h5 class="card-title">Family does not have an account? <a href="/register">Register Today!</a></h5>
+  
+  </div>
+</div>
+
+
 </div>

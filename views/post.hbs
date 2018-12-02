@@ -1,9 +1,11 @@
 
 <body>
 <div class="container">
-   <h2>POST YOUR FIND</h2>
-   <form class="form-horizontal" method="POST" action="/post">
+   
+    <h2 class="text-center">POST YOUR FIND</h2>
+   <form class="form-horizontal" onsubmit="return isValidURL()" method="POST" action="/post">
       <div class="form-group">
+
          <label class="control-label col-sm-2" for="email">Name:</label>
          <div class="col-sm-10">
             <input type="text" class="form-control" id="name"  name="name">
@@ -16,8 +18,8 @@
          </div>
       </div>
       <div class="form-group">
-         <label class="control-label col-sm-2" for="pwd">Link:</label>
-         <div class="col-sm-10">          
+         <label class="control-label col-sm-2" id="toDisplay" for="pwd">Link: </label>
+         <div class="col-sm-10" >          
             <input type="text" class="form-control" id="link" placeholder="Valid URL ONLY" name="link">
          </div>
       </div>
@@ -29,7 +31,7 @@
       </div>
       <div class="form-group">
          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-post" onlick="isValidURI()">Submit</button>
+            <button type="submit" id="submitbtn" class="btn btn-post" onlick="isValidURI()">Submit</button>
          </div>
       </div>
    </form>

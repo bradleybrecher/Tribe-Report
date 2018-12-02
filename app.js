@@ -4,11 +4,8 @@ require('./auth');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const validUrl = require('valid-url');
+
 const app = express();
-
-
-const alert = require('alert-node');
 
 const mongoose = require('mongoose');
 
@@ -58,10 +55,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
     if (req.user) {
-        console.log("someone is logged in");
+        // console.log("someone is logged in");
         res.redirect('/feed')
     } else {
-        console.log("Houston, we need to log someone in");
+        // console.log("Houston, we need to log someone in");
         res.redirect('login');
     }
 });
@@ -73,6 +70,12 @@ app.get('/login', function(req, res) {
 app.get('/register', function(req, res) {
     res.render('register');
 });
+
+app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
 
 app.post('/register', function(req, res) {
     // way to make sure there is no problem
@@ -110,7 +113,7 @@ app.post('/login', function(req, res, next) {
 app.get('/post', (req, res) => {
     // TODO: MAKE SURE ALL DB RENDERS ON FIRST CLICK
     if (req.user) {
-        console.log("someone is logged in");
+        // console.log("someone is logged in");
         theUser = req.user;
         theUserID = theUser._id;
         // continue
@@ -129,7 +132,7 @@ app.get('/post', (req, res) => {
 app.get('/feed', (req, res) => {
 
     if (req.user) {
-        console.log("someone is logged in");
+        // console.log("someone is logged in");
         // continue
 
         const name = req.query.name;
@@ -145,8 +148,16 @@ app.get('/feed', (req, res) => {
             // find which ones contain that name and display them
             Article.find(theQuery, function(err, articles) {
                 if (articles.length == 0) {
-                    // send to the DOM an error 
-                    console.log("no find of a query");
+                    Article.find({
+                        "user": theUserID
+                    }, function(err, articles) {
+                        const str = "No Articles Posted by " + name;
+                        res.render('feed', {
+                            articles: articles,
+                            message: str
+                        });
+
+                    });
                 } else {
                     res.render('feed', {
                         articles: articles
@@ -159,31 +170,39 @@ app.get('/feed', (req, res) => {
             Article.find({
                 "user": theUserID
             }, function(err, articles) {
-                console.log('initial find but not in first');
                 res.render('feed', {
                     articles: articles
                 });
             });
         }
     } else {
-        console.log("Houston, we need to log someone in");
+        // console.log("Houston, we need to log someone in");
         res.redirect('login');
     }
-
-
-
 
 });
 
 app.post('/feed', (req, res) => {
 
-    // console.log(req.body[3]);
-
-    const theName = req.body.name;
-    const theComment = req.body.comment;
     const obj = req.body;
-    console.log(obj);
-    const theID = Object.keys(obj)[2];
+
+    let vals = Object.keys(obj).map(function(key) {
+
+        return obj[key];
+    });
+
+    // eliminate white space dummy val to query id
+    let filteredVals = vals.filter(function(a) {
+        return a !== '';
+    });
+
+    let keys = Object.keys(obj).map(function(key) {
+        return key;
+    });
+
+    const theName = vals[0];
+    const theComment = vals[1];
+    const theID = keys[2];
     // handle comment submissions
 
     const aComment = new Comment({
@@ -218,83 +237,59 @@ app.post('/feed', (req, res) => {
 
 app.post('/post', (req, res) => {
 
-    if (validUrl.isUri(req.body.link)) {
-       
-        theName = req.body.name;
-        theTitle = req.body.title;
-        theLink = req.body.link;
-        theComment = req.body.comment;
-        theUser = req.user;
-        theUserID = theUser._id;
+    theName = req.body.name;
+    theTitle = req.body.title;
+    theLink = req.body.link;
+    theComment = req.body.comment;
 
-        // TODO: figure out why a post takes one to delay
+    theUser = req.user;
+    theUserID = theUser._id;
 
-        const articleToPush = new Article({
-            user: theUser,
-            name: theName,
-            title: theTitle,
-            link: theLink,
-            comment: theComment
+    // TODO: figure out why a post takes one to delay
 
-        });
-        // first save the article
-        articleToPush.save(function(err, article) {
-            if (err) {
-                console.log(err);
+    const articleToPush = new Article({
+        user: theUser,
+        name: theName,
+        title: theTitle,
+        link: theLink,
+        comment: theComment
 
-            } else {
-                const articleID = article._id;
-                // get the id to query
-                // then find the user and update its article list
-                User.findOneAndUpdate({
-                        "_id": theUserID
-                    }, {
-                        $push: {
-                            articles: articleToPush
-                        }
-                    }, {
-                        safe: true,
-                        upsert: true
-                    },
-                    function(err, users) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            // console.log(users.articles);
+    });
+    // first save the article
+    articleToPush.save(function(err, article) {
+        if (err) {
+            console.log(err);
 
-                            // // find the articles for the user and render them
-                            // // need to query all article ids
-                            // Article.find({
-                            //     "_id": {
-                            //         $in: users.articles
-                            //     }
-                            // }, function(err, articles) {
-                            //     // console.log('found');
-                            //     res.render('feed', {
-                            //         articles: articles
-                            //     });
-                            // });
-                            res.redirect('/feed');
+        } else {
+            const articleID = article._id;
 
-                        }
+            // then find the user and update its article list
+            User.findOneAndUpdate({
+                    "_id": theUserID
+                }, {
+                    $push: {
+                        articles: articleToPush
                     }
-                );
+                }, {
+                    safe: true,
+                    upsert: true
+                },
+                function(err, users) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.redirect('/feed');
+
+                    }
+                }
+            );
 
 
-            }
+        }
 
-        });
-
-
+    });
 
 
-
-    } else {
-        console.log('Not a URI');
-        alert("Not a URI: TODO: Integrate with DOM");
-        // add an onlick and if it doesn;t go through call thr js function
-        
-    }
 });
 
 

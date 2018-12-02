@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <title>Tribe Report</title>
+
 <link rel="stylesheet" type="text/css" href="/css/base.css">
 <script src="/javascripts/tribe.js"></script>
-<script src="https://npmcdn.com/js-alert/dist/jsalert.min.js"></script>
+
 
 <!-- First include jquery js -->
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -16,10 +17,10 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 
+<!-- validate.js-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
 
 </head>
 
@@ -31,20 +32,27 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" >Tribe Report</a>
+          <a style="color: white;" class="navbar-brand" >Tribe Report</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="/feed">Feed</a></li>
-            <li><a href="/post" >Post</a></li>
+          <ul id="navcont" class="nav navbar-nav">
+            <li ><a style="color: white;" href="/feed">Feed</a></li>
+            <li><a style="color: white;" href="/post" >Post</a></li>
+            {{#if user}}
+            <li ><a style="color: white;"href="/logout">Logout</a></li>
+            {{else}}
+            <li ><a style="color: white;"href="/login">Login</a></li>
+            {{/if}}
           </ul>
         </div><!--/.nav-collapse -->
     </nav>
+
+    
 <div class="some-space"></div>
   <br/>
   <p>
     {{#if user}}
-<h5>Welcome {{user.username}}</h5>
+<h5>Welcome esteemed member of the {{user.username}} tribe!</h5>
 {{/if}}
 {{{ body }}}
 </p>

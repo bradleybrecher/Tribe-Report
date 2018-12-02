@@ -1,11 +1,30 @@
-body{
+#navbar{
+  background-color: black;
+}
+#navcont{
+  color:white;
+}
+.legend{
+  font-size:30px;
+}
+h5{
+  font-size: 18px;
+}
+
+#link, #comment, #name, #title{
+  background-color: #F5F5DC;
+}
+
+#login,#register{
+  background-color: #F5F5F5;
+}
+
+#bootstrap-overrides body{
 	background-color:AliceBlue;
 }
-
-#link {
-	background-color: white;
+.timeline-body {
+  background-color: #F5F5F5;
 }
-
 .box{
     display: none;
     width: 100%;
@@ -25,11 +44,18 @@ a:hover + .box,.box:hover{
 .form-horizontal .control-label.text-left{
     text-align: left;
 }
-
-p1{
-	font-size: 30px;
+p0{
+  font-size: 26px;
 }
-
+p1{
+	font-size: 25px;
+}
+p2{
+    font-size: 23px;
+}
+.timeline-title{
+  font-size: 30px;
+}
 * {box-sizing: border-box}
 
 /* Add padding to containers */
@@ -44,11 +70,9 @@ input[type=text], input[type=password] {
   margin: 5px 0 22px 0;
   display: inline-block;
   border: none;
-  background: #f1f1f1;
 }
 
 input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
   outline: none;
 }
 
@@ -58,10 +82,7 @@ hr {
   margin-bottom: 25px;
 }
 
-/* Set a style for the submit/register button */
 .registerbtn {
-  background-color: #4CAF50;
-  color: white;
   padding: 16px 20px;
   margin: 8px 0;
   border: none;
@@ -74,13 +95,23 @@ hr {
   opacity:1;
 }
 
-/* Add a blue text color to links */
-a {
-  color: dodgerblue;
+.signin {
+  text-align: center;
+}
+#filter{
+    size:12px;
+    text-align: left;
 }
 
-/* Set a grey background color and center the text of the "sign in" section */
-.signin {
-  background-color: #f1f1f1;
-  text-align: center;
+#filterform {
+    align:left;
+}
+
+#takebtn,#filterbtn,#submitbtn{
+  background-color: black;
+  color:white;
+}
+
+#no work{
+  color:red;
 }
